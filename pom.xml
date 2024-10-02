@@ -52,6 +52,16 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!-- 连接池 -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+
+
+
         <!--test测试依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
