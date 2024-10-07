@@ -24,25 +24,25 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.haders.repositories")  //启动JPA
+@EnableJpaRepositories(basePackages = "com.haders.repositories")  //启动JPA com/haders/repositories
 @EnableTransactionManagement    //开启事务
 public class ApplicationConfig {
 
-    @Autowired
-    DataSourceProperties dataSourceProperties;
+//    @Autowired
+//    DataSourceProperties dataSourceProperties;
 
     @Bean
 
 //    @ConfigurationProperties(prefix = "spring.datasource")
     @Primary
-    public DataSource dataSource(DataSourceProperties properties) {
+    public DataSource dataSource() {
         //整合Druid 手动读取
-//        DruidDataSource druidDataSource = new DruidDataSource();
-//        druidDataSource.setUsername("root");
-//        druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//        druidDataSource.setUrl("jdbc:mysql://120.55.68.139:3306/haders?serverTimezone=Asia/Shanghai");
-//        druidDataSource.setPassword("5)fs9%rfF>Ko!");
-//        return druidDataSource;
+        DruidDataSource druidDataSource = new DruidDataSource();
+        druidDataSource.setUsername("root");
+        druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        druidDataSource.setUrl("jdbc:mysql://120.55.68.139:3306/haders?serverTimezone=Asia/Shanghai");
+        druidDataSource.setPassword("5)fs9%rfF>Ko!");
+        return druidDataSource;
             //通过配置读取
 //        DruidDataSource druidDataSource = new DruidDataSource();
 //        druidDataSource.setUsername(dataSourceProperties.getUsername());
@@ -52,13 +52,13 @@ public class ApplicationConfig {
 //        return druidDataSource;
 
 
-        return DataSourceBuilder.create(properties.getClassLoader())
-                .type(HikariDataSource.class)
-                .driverClassName(properties.determineDriverClassName())
-                .url(properties.determineUrl())
-                .username(properties.determineUsername())
-                .password(properties.determinePassword())
-                .build();
+//        return DataSourceBuilder.create(properties.getClassLoader())
+//                .type(HikariDataSource.class)
+//                .driverClassName(properties.determineDriverClassName())
+//                .url(properties.determineUrl())
+//                .username(properties.determineUsername())
+//                .password(properties.determinePassword())
+//                .build();
 
 
 //        return DataSourceBuilder.create().build();
@@ -76,7 +76,8 @@ public class ApplicationConfig {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("com.haders.pojo");//实体类的包全限定名
-        factory.setDataSource(dataSource(dataSourceProperties));
+//        factory.setDataSource(dataSource(dataSourceProperties));
+        factory.setDataSource(dataSource());
         return factory;
     }
 

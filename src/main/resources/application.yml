@@ -12,4 +12,4 @@ spring:
       #自动生成数据库表（关键）
       ddl-auto: update
       #jpa配置：在控制台显示Hibernate的sql(可选)
-    show-sql: true
+    show-sql: false
