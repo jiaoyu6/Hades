@@ -1,4 +1,5 @@
 import com.haders.configs.ApplicationConfig;
+import com.haders.pojo.QStaff;
 import com.haders.pojo.Staff;
 import com.haders.repositories.StaffRepository;
 import org.junit.Test;
@@ -24,6 +25,14 @@ public class JpaTest {
 
     @Test
     public void testSave(){
+        Staff staff = new Staff();
+        staff.setName("宇哥");
+        staffRepository.save(staff);
+    }
+
+    @Test
+    public void qtest(){
+        QStaff qStaff = QStaff.staff;
         Staff staff = new Staff();
         staff.setName("宇哥");
         staffRepository.save(staff);
