@@ -4,6 +4,10 @@ package com.haders.configs;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.mysql.jdbc.Driver;
 import com.zaxxer.hikari.HikariDataSource;
+import org.hibernate.boot.model.naming.Identifier;
+import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
+import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
+import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -66,16 +70,17 @@ public class ApplicationConfig {
 
     }
 
+    
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(true);
+        vendorAdapter.setGenerateDdl(false);
         vendorAdapter.setShowSql(true);
-
+        
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.haders.pojo");//实体类的包全限定名
+        factory.setPackagesToScan("com.haders.entity");//实体类的包全限定名
 //        factory.setDataSource(dataSource(dataSourceProperties));
         factory.setDataSource(dataSource());
         return factory;
@@ -88,4 +93,18 @@ public class ApplicationConfig {
         txManager.setEntityManagerFactory(entityManagerFactory);
         return txManager;
     }
+    
+//    @Bean
+//    public PhysicalNamingStrategyStandardImpl physicalNamingStrategy() {
+//        return new PhysicalNamingStrategyStandardImpl();
+//    }
+
+//    public  String camelToUnderscore(String camelCaseStr) {
+//        // 使用正则表达式匹配大写字母
+//        String regex = "([a-z])([A-Z])";
+//        // 替换匹配到的大写字母，在其前加上下划线
+//        String replacement = "$1_$2";
+//        // 转换为小写
+//        return camelCaseStr.replaceAll(regex, replacement).toLowerCase();
+//    }
 }
